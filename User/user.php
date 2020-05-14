@@ -161,10 +161,13 @@ public function createFormErrorSessions(){
 }
 
 
+
+
 public function isPasswordCorrect(){
     $db = mysqli_connect("localhost", "root", "", "btc3205");
     $con = new DBConnector;
 $found = false;
+
 
 $res = mysqli_query($db,"SELECT * FROM  user") or die("Error:" . mysqli_error());
 if(mysqli_num_rows($res) > 0 ){
@@ -202,6 +205,7 @@ public function hashPassword(){
 
 public function createUserSession(){
     session_start();
+
     $_SESSION['username'] = $this->getUsername();
 
 }
