@@ -1,17 +1,36 @@
 <?php
 include_once('User/user.php');
 include_once('DBConnector/DBConnector.php');
+include_once('FileUpload/fileUpload.php');
 
 
 $con = new DBConnector;
 
+$uploader = new fileUpload;
+
+
+
+
 if(isset($_POST['submit'])){
 
+    /*
+    echo "<pre>", print_r($_POST), "</pre>";
+    echo "<pre>", print_r($_FILES), "</pre>";
+    echo "<pre>", print_r($_FILES['filetoUpload']['name']), "</pre>";
+    die();
+*/
+
+
+
+    
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $cityname = $_POST['cityname'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+
+
+
 
 
 
@@ -43,7 +62,10 @@ $username = $user->getUsername();
 //password
 $user->setPassword($password);
 $password = $user->getPassword();
- 
+
+
+//object for uploading the file
+$uploader = new fileUpload;
 
 
 if(!$user->validateForm()){
@@ -54,7 +76,12 @@ if(!$user->validateForm()){
 }
 $temp = $user->save();
 
-if($temp){
+//object for uploading the file
+
+$file_upload_reponse = $uploader->upLoadFile();
+
+
+if($temp & $file_upload_reponse){
     echo "Saving was done successfully!!";
 }
 else{
@@ -62,7 +89,10 @@ else{
 }
 
 //$con->closeDatabase();
+
+
 }
+
 
 
 
@@ -78,6 +108,10 @@ else{
     <script type = "text/javascript" src = "validation.js"></script>
     <link rel = "stylesheet" type = "text/css" href = "validate.css">
 
+    <script src= "https://ajax/googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script type = "text/javascript" src = "timezone.js"></script>
+
 		</head>
 		
 			
@@ -86,7 +120,7 @@ else{
 
 			<body>
 			
-				<form method="POST" id="user_details" name="user_details" onsubmit="return validateForm()" action="<?=$_SERVER['PHP_SELF']?>">
+				<form method="POST" id="user_details" name="user_details" onsubmit="return validateForm()" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
 				
 				
 				<table align = "center">
@@ -121,8 +155,14 @@ else{
 
                 <tr><td><input type="text" name="username" placeholder="Enter username..." required></td></tr>
                 <tr><td><input type="password" name="password" placeholder="Enter password..." required></td></tr>
+
+                <tr><td>Profile Image: <input type="file" name="filetoUpload" id="filetoUpload" ></td></tr>
+            
+                <tr><td><input type="hidden" name="utc_timestamp" id="utc_timestamp" ></td></tr>
+                <tr><td><input type="hidden" name="time_offset" id="time_offset" ></td></tr>
                 
                 <tr><td><button type="submit" name = "submit"> <strong>SAVE</strong> </button></td></tr>
+
                 <tr><td><a href = "login.php"> <strong>Login</strong> </a></td></tr>
                 
                 
