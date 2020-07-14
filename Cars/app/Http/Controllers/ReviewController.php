@@ -44,9 +44,27 @@ class ReviewController extends Controller
                  'review' => $review
              ]);
 
+        }
+
+            
+        //method for getting the car details of a review
+        public function cardetails(Request $request){
+            $review= Review::where('id',$request->id)->get();
+
+            foreach($review as $review){
+                $review->car;
+
+                return response()->json([
+                    'success' =>true,
+                    'message' => 'Request Successful',
+                    'review' => $review
+                ]);
+            }
+
+        }
+        }
+
              
      
     
 
-}
-}

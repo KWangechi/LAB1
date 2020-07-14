@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('reviews', 'ReviewController@index');
 Route::post('/review/create' , 'ReviewController@create');
 Route::post('carreview', 'ReviewController@review');
+Route::post('cardetails', 'ReviewController@cardetails');
