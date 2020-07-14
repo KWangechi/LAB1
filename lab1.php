@@ -29,9 +29,17 @@ if(isset($_POST['submit'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    $time_stamp = $_POST['utc_timestamp'];
+    $offset = $_POST['time_offset'];
 
 
+    $file = $_FILES['filetoUpload']['name'];
+    $filename = $_FILES['filetoUpload']['tmp_name'];
+    $filetype = $_FILES['filetoUpload']['name'];
+    $filesize = $_FILES['filetoUpload']['size'];
 
+   
+    
 
 
 $user  = new User();
@@ -63,9 +71,39 @@ $username = $user->getUsername();
 $user->setPassword($password);
 $password = $user->getPassword();
 
+//timeoffset
+$user->setTimeOffset($offset);
+$offset = $user->getTimeOffset();
+
+
+//timestamp
+$user->setTimeStamp($time_stamp);
+$time_stamp = $user->getTimeStamp();
+
+
 
 //object for uploading the file
 $uploader = new fileUpload;
+
+
+//setting and getting the name of the file
+$uploader->setOriginalFileName($file);
+$file = $uploader->getOriginalFileName();
+
+//method for the file size
+$uploader->setFileSize($filesize);
+$filesize = $uploader->getFileSize();
+
+//methods for the temporary name
+$uploader->setFinalFileName($filename);
+$filename = $uploader->getFinalFileName();
+
+/*
+echo "<pre>", print_r($file), "</pre>";
+echo "<pre>", print_r($filesize), "</pre>";
+echo "<pre>", print_r($filename), "</pre>";
+*/
+
 
 
 if(!$user->validateForm()){
@@ -91,6 +129,9 @@ else{
 //$con->closeDatabase();
 
 
+
+
+
 }
 
 
@@ -105,10 +146,16 @@ else{
 	
 	
 	<title>Sign up Page</title>
+
+    
+
     <script type = "text/javascript" src = "validation.js"></script>
     <link rel = "stylesheet" type = "text/css" href = "validate.css">
 
-    <script src= "https://ajax/googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!--
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    -->
+    <script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js?ver=1.4.2"></script>
 
     <script type = "text/javascript" src = "timezone.js"></script>
 
@@ -172,3 +219,5 @@ else{
 					
 </html>
 
+
+        

@@ -102,9 +102,21 @@ public function setTimeOffset($timeoffset){
 }
 
 
-public function getOffSet(){
+public function getTimeOffSet(){
     return $this->offset;
 }
+
+
+//Setters and getters for the timestamp
+public function setTimeStamp($timestamp){
+    $this->timestamp = $timestamp;
+}
+
+
+public function getTimeStamp(){
+    return $this->timestamp;
+}
+
 
     public function save(){
 
@@ -121,7 +133,10 @@ public function getOffSet(){
     $pass = $this->password;
     $image = time() .  '_' . $_FILES['filetoUpload']['name'];
 
-    //$temp = mysqli_query($db,"INSERT INTO user(first_name,last_name,user_city,file,username,password) VALUES ('$fn', '$ln', '$city','$image', $uname', '$pass')") or die("Error:" . mysqli_error());
+    $tmoffset = $this->offset;
+    $tm_stamp = $this->timestamp;
+
+    //$temp = mysqli_query($db,"INSERT INTO user(first_name,last_name,user_city,file,username,password,utc_timestamp,time_zone) VALUES ('$fn', '$ln', '$city','$image', $uname', '$pass', '$tmoffset','$tm_stamp')") or die("Error:" . mysqli_error());
     var_dump($fn);
     var_dump($ln);
     var_dump($city);

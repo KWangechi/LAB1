@@ -91,10 +91,10 @@ public function uploadFile() {
         $this->saveFilePathTo();
        // $this->moveFile();
 
-        $this->fileAlreadyExists();
+        $this->fileAlreadyExists();//not working
        $this->fileSizeIsCorrect();
         $this->fileTypeIsCorrect();
-       $this->fileWasSelected();
+       $this->fileWasSelected();//not working
     
     
     
